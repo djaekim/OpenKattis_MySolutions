@@ -1,0 +1,48 @@
+
+
+import java.util.*;
+
+public class ClosestSums {
+	public static void main(String[] args) {
+		Scanner N = new Scanner(System.in);
+		int cas = 1;
+		while (N.hasNext()) {
+			ArrayList<Integer> firstinput = new ArrayList<Integer>();
+			ArrayList<Integer> SecondInputs = new ArrayList<Integer>();
+			int N1 = N.nextInt();
+			for (int i = 0; i < N1; i++) {
+				firstinput.add(i, N.nextInt());
+			}
+			int N2 = N.nextInt();			
+			for (int i = 0; i < N2; i++) {
+				SecondInputs.add(i, N.nextInt());
+			}
+			System.out.println("Case " + cas +  ":");
+			cas++;
+			int inc = 1;
+			int size = firstinput.size();
+			int sizesecond = SecondInputs.size();
+			int SUMbefore;
+			int SUM = 0;
+			while (sizesecond >= inc){
+				int result = 0;
+				SUMbefore = 1000;
+				
+			for (int j = 0; j < size-1; j++){
+				for (int k = j+1; k < size; k++){
+					SUM = (firstinput.get(j) + firstinput.get(k));
+					System.out.println(SUM);
+					int SUM1 = Math.abs(SUM - SecondInputs.get(inc-1));
+					if (SUM1 < SUMbefore){
+						SUMbefore = SUM1;
+						result = SUM;
+					}			
+				}
+			}
+			System.out.println("Closest sum to " + SecondInputs.get(inc-1)+ " is " + result +".");
+			inc++;
+			}
+		}
+		N.close();
+	}
+}
