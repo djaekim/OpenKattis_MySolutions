@@ -1,0 +1,76 @@
+
+
+import java.util.*;
+
+public class Peragrams {
+	public static void main (String [] args){		
+		LinkedList <Character> keep = new LinkedList <Character>();
+		ArrayList <Character> compare = new ArrayList <Character>();
+		for (int i = 97; i <= 122; i++){
+			compare.add(i-97, (char)i);
+		}
+		Scanner N = new Scanner (System.in);
+		while (N.hasNext()){
+			ArrayList <Character> inputs = new ArrayList <Character>();
+			ArrayList <Integer> occurences = new ArrayList <Integer>();
+			//ArrayList <Character> occurChar = new ArrayList <Character> ();
+			int [] occurC = null;
+			String input = N.next();
+			for (char c : input.toCharArray()){
+				inputs.add(c);
+			}
+			
+			for (int i = 0; i < inputs.size(); i++){
+				for (int j = 0; j < inputs.size()-1; j++){
+					int temp = inputs.get(j);
+					if (inputs.get(j) > inputs.get(j+1)){
+						inputs.set(j, inputs.get(j+1));
+						inputs.set(j+1, (char) temp);
+					}
+				}
+			}
+		//	System.out.println(inputs);
+			int count = 1;
+			int total = 0;
+			for (int i = 1; i < inputs.size(); i++){
+				if (inputs.get(i) == inputs.get(i-1)){
+					count++;
+				}
+				else if (inputs.get(i) != inputs.get(i-1)){
+					total = total + count;
+					occurences.add(count);
+					count = 1;
+				}
+			}
+			occurences.add(inputs.size()-total);
+		//	System.out.println(occurences);
+			int odd = 0;
+			for (int i = 0; i < occurences.size(); i++){
+				if (occurences.get(i) % 2 == 0){
+					continue;
+				}
+				else {
+					odd++;
+				}
+			}
+			//System.out.println("odd " + odd);
+			
+			if (inputs.size() % 2 == 1){
+				if (odd > 1){
+					System.out.println(odd-1);
+				}
+				else {
+					System.out.println(0);
+				}
+			}else {
+				if (odd == 0){
+					System.out.println(0);
+				}
+				else{
+				System.out.println(odd-1);
+				}
+		}
+	}
+}
+}
+			
