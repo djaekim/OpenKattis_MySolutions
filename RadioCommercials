@@ -1,0 +1,52 @@
+import java.io.*;
+// Java program to print largest contiguous array sum
+import java.util.*;
+ 
+class RadioCommercials
+{
+    public static void main (String[] args)
+    {
+        Scanner N = new Scanner(System.in);
+        while (N.hasNext()) {
+            LinkedList <Integer> firstLine = new LinkedList <Integer>();
+            StringTokenizer st = new StringTokenizer(N.nextLine(), " ");
+            
+            while(st.hasMoreTokens()){
+                firstLine.add(Integer.parseInt(st.nextToken()));
+            }
+       
+            LinkedList <Integer> secondLine = new LinkedList <Integer>();
+            StringTokenizer st1 = new StringTokenizer(N.nextLine(), " ");
+            while(st1.hasMoreTokens()){
+                secondLine.add(Integer.parseInt(st1.nextToken()));
+            }
+            ListIterator<Integer> listIterator = secondLine.listIterator();
+            int deduction = firstLine.get(1);
+            int i = 0;
+            int size = secondLine.size();
+            int [] array = new int [size];
+            while (listIterator.hasNext()){
+                array[i] = listIterator.next()-deduction;
+                i++;
+            }
+            System.out.println(MaxSubArray(array));
+           
+        }
+    }
+ 
+    static int MaxSubArray(int a[])
+    {
+        int size = a.length;
+        int max_so_far = Integer.MIN_VALUE, max_ending_here = 0;
+ 
+        for (int i = 0; i < size; i++)
+        {
+            max_ending_here = max_ending_here + a[i];
+            if (max_so_far < max_ending_here)
+                max_so_far = max_ending_here;
+            if (max_ending_here < 0)
+                max_ending_here = 0;
+        }
+        return max_so_far;
+    }
+}
