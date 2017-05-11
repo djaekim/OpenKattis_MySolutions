@@ -1,0 +1,94 @@
+import java.util.Scanner;
+import java.util.StringTokenizer;
+
+public class Natrij {
+	public static void main (String [] args){
+		int current [][] = new int [1][3];
+		int destination [][] = new int [1][3];
+		int answer[][] = new int[1][3];
+		Scanner scan = new Scanner (System.in);
+		
+		int index = 0;
+		int index1 = 0;
+		int accumulator = 0;
+		int accumulator1 = 0;
+		StringTokenizer N = new StringTokenizer(scan.nextLine(), " : ");
+		while (N.hasMoreTokens()) {
+			current[0][index] = Integer.parseInt(N.nextToken());
+			if (index == 0){
+			accumulator = current[0][index] * 60 * 60; 
+			}
+			if (index == 1){
+				accumulator = current[0][index] * 60 + accumulator;
+			}
+			if (index == 2){
+				accumulator = current[0][index] + accumulator;
+			}
+			index++;
+		}
+		StringTokenizer M = new StringTokenizer(scan.nextLine(), " : ");
+		while (M.hasMoreTokens()) {
+			destination[0][index1] = Integer.parseInt(M.nextToken());
+			if (index1 == 0){
+				accumulator1= destination[0][index1] * 60 * 60; 
+				}
+			if (index1 == 1){
+					accumulator1 = destination[0][index1] * 60 + accumulator1;
+				}
+			if (index1 == 2){
+					accumulator1 = destination[0][index1] + accumulator1;
+				}
+			index1++;
+		}
+		
+		//
+	
+		
+		//
+		if (accumulator == accumulator1 ){
+			System.out.println("24:00:00");
+			return;
+		}
+		int hours = (destination[0][0] - current[0][0] + 24) % 24;
+		int minutes = (destination[0][1] - current[0][1] + 60) % 60;
+		int seconds = (destination[0][2] - current[0][2] + 60) % 60;
+		
+		if (current[0][2] > destination[0][2]){
+			if (current[0][1] >= destination[0][1]){
+				hours--;	
+			}
+			minutes--;
+		}
+		else if (current[0][1] > destination[0][1]){
+			hours--;
+		}
+		hours = (hours + 24) % 24;
+		minutes = (minutes + 60) % 60;
+		seconds = (seconds + 60) % 60;
+		
+		if (hours >= 10){
+			System.out.print(hours + ":");
+		}
+		else {
+			System.out.print("0" + hours + ":");
+		}
+		if (minutes >= 10){
+			System.out.print(minutes + ":");
+		}
+		else {
+			System.out.print("0" + minutes + ":");
+		}
+		if (seconds >= 10){
+			System.out.print(seconds);
+		}
+		else {
+			System.out.print("0" + seconds);
+		}
+		
+		
+		
+		
+		
+	}
+}
+		
