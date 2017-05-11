@@ -1,0 +1,20 @@
+import java.util.*;
+
+public class one {
+    public static void main (String  [] args){
+        Scanner scan = new Scanner (System.in);
+        while(scan.hasNextLong()){
+            int modulo = scan.nextInt();
+            int answer = 0;
+            int count = 1;
+            long sequence = 1; // starting 1
+            while (sequence % modulo != 0){
+                sequence = sequence * 10;
+                sequence = sequence + 1;
+                count++;
+                sequence = sequence % modulo;
+            }
+            System.out.println(count);
+    }
+    }
+}
