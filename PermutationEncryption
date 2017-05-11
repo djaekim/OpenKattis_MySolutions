@@ -1,0 +1,86 @@
+import java.io.IOException;
+    import java.io.StringReader;
+    import java.util.*;
+    
+    public class PermutationEncryption {
+        public static void main (String args []){
+            int len = 0;
+            Scanner in = new Scanner(System.in);
+            while (in.hasNextLong()){
+                String buff;
+                LinkedList <Integer> firstLine = new LinkedList <Integer>();
+                StringTokenizer st = new StringTokenizer(in.nextLine(), " ");
+                
+                while(st.hasMoreTokens()){
+                    firstLine.add(Integer.parseInt(st.nextToken()));
+                }
+                if (firstLine.getFirst() == 0){
+                    System.exit(0);
+                }
+                
+                int [] keys = new int[firstLine.size()-1];
+                for (int i = 0; i < firstLine.size()-1; i++){
+                    keys[i] = firstLine.get(i+1); // 
+                }
+                buff = in.nextLine();
+                StringReader buff1 = new StringReader(buff);
+                //System.out.println(buff.length());
+            //  System.out.println(keys.length);
+                int temp = (buff.length() % keys.length);
+                //System.out.println(temp);
+                if (temp !=0){
+                    len = buff.length() + (keys.length - temp);
+                }
+                else{
+                    len = buff.length();
+                }
+                char [] message = new char [len];
+                //System.out.println(len);
+                
+                try {
+                    buff1.read(message);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                for (int i = buff.length(); i < len; i++){
+                    message[i] = ' ';
+                }
+                char [] encryptMessage = new char [len];
+                for (int i = 0; i < len; i++){
+                    encryptMessage[i] = ' ';
+                }
+                int j = 0;
+                int k = 1;
+                
+    
+                for (int i = 0; i < len; i++){
+                    if (j == keys.length){
+                        j = 0;
+                    }
+                    if (k > keys.length){
+                        k = 1;
+                    }
+                    if (k > keys[j]){
+                        int newVal = k - keys[j];
+                        encryptMessage[i] = message[i-newVal];                  
+                    }
+                    else if (k < keys[j]){
+                        int newVal = keys[j] - k;
+                        encryptMessage[i] = message[i+newVal];
+                    }
+                    else {
+                        encryptMessage[i] = message[i];
+                    }
+                    
+                    j++;
+                    k++;
+                }
+                System.out.print("'");
+            for (int i = 0; i < len; i++){
+                System.out.print(encryptMessage[i]);
+            }   
+            System.out.print("'");
+            System.out.println();
+        }
+    }
+    }
