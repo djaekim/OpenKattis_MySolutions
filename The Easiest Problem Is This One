@@ -1,0 +1,40 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <math.h>
+
+int a;
+
+int summation (int a){
+    char buff [16];
+    int power = 10;
+    int sum = 0;
+    int digits1;
+    int digit = sprintf(buff, "%d", a);
+    for (int  i = 0; i < digit; i++){
+        digits1 = a % (power);
+        a = a / 10;
+        sum = sum + digits1;
+    }
+    return sum;
+}   
+    
+
+int main (){    
+while (scanf("%d", &a) == 1 && a != 0){
+    int noob  = 11;
+    int N = summation(a); // summation of N
+    while (noob > 0){
+        int buff =  a * noob;
+        int sum1 = summation(buff);
+        if (N == sum1){
+            printf ("%d\n", noob);
+            noob = 0;   
+        }
+        else {
+            noob++;
+        }
+    }
+}
+return 0;
+}
