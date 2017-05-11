@@ -1,0 +1,70 @@
+import java.util.*;
+import java.lang.*;
+
+//THIS IS MY FIRST ATTEMPT
+/*public class NodeTree {
+	static int indexing = 0;
+	public static void FindIndex (int [][] array, int counter, int currentIndex, int length){
+		if (counter < length){
+			 int accumulator = array[counter][0] * currentIndex + array[counter][1];
+			 indexing = accumulator;
+		
+			 FindIndex(array, counter+1, accumulator , length);
+		}
+	}
+	public static void main (String [] args){
+		Scanner scan = new Scanner(System.in);
+		int height = scan.nextInt();
+	//	System.out.println("height " + height);
+		int HighestNode = (int) ((Math.pow(2,height+1)) - 1);
+		//System.out.println("heighestnode " + HighestNode);
+		String buff = scan.nextLine();
+		if (buff.length() == 0){
+			System.out.println(HighestNode);
+			return;
+		}
+		int [][] array =  new int [buff.length()+1][2];
+		for (int i = 1; i <  buff.length(); i++){
+			if (buff.charAt(i) == 'R'){
+				array[i][0] = 2;
+				array[i][1] = 1;
+			}
+			else if (buff.charAt(i) == 'L'){
+				array[i][0] = 2;
+			}
+			//System.out.println(array[i][0] + ", " + array[i][1]);
+		}
+
+		FindIndex(array,1, 1,buff.length());
+		
+		System.out.println(HighestNode-(indexing-1));
+		
+		
+	}
+}
+*/
+// THIS IS MY 2ND ATTEMPT
+public class NodeTree{
+	static int counter = 1;
+	public static void main (String [] args){
+		Scanner scan = new Scanner (System.in);
+		int height = scan.nextInt();
+		int node = 1 << height+1;
+		System.out.println(node);
+		String direction = scan.nextLine();
+		for (int i = 0; i < direction.length(); i++){
+			if (direction.charAt(i) == 'L'){
+				counter = 2 * counter;
+			}
+			else if (direction.charAt(i) == 'R'){
+				counter = 2*counter  + 1;
+			}
+		}
+		if (direction.length() == 0){
+			System.out.println((int)Math.pow(2,height+1)-1);
+		}
+		else {
+			System.out.println(node-(counter));
+		}
+	}
+}
