@@ -1,0 +1,86 @@
+import java.util.PriorityQueue;
+import java.util.Stack;
+import java.util.Collections;
+import java.util.ArrayList;
+import java.util.Scanner;
+import java.util.LinkedList;
+
+public class DataStructure {
+    public static  void  main (String args []){
+        Scanner sc = new Scanner(System.in);
+        while (sc.hasNextLong()) {
+            boolean result_stack = true;
+            boolean result_queue = true;
+            boolean result_priority = true;
+            boolean impossible = false;
+            int numberInputs = sc.nextInt();
+            LinkedList<Integer> keeper = new LinkedList<Integer>();
+            ArrayList<Integer> queue = new ArrayList <Integer>();
+            Stack <Integer> stack = new Stack <Integer> ();
+            PriorityQueue<Integer> priority = new PriorityQueue <Integer>(Collections.reverseOrder ());
+            int i = 0;
+            
+            for (int j = 0 ; j < numberInputs; j++){
+
+                int key = sc.nextInt();
+                int value = sc.nextInt();
+
+                if (key == 1){
+                    keeper.add(value);
+                    queue.add(value); 
+                    stack.push(value);
+                    priority.add(value);
+                }
+                else if (key == 2){
+                    if (keeper.contains(value)){
+                        int rm = keeper.indexOf(value);
+                        keeper.remove(rm);
+                        if (queue.get(i) != value){
+                            result_queue = false;
+                        }
+                        else if (queue.get(i) == value && result_queue){
+                            queue.remove(i);
+                        }
+                        if (stack.peek() != value){
+                            result_stack = false;
+                        }
+                        else if (stack.peek() == value && result_stack){
+                            stack.pop();
+                        }
+                        if (priority.peek() !=  value){
+                            result_priority = false;
+                        }
+                        else if (priority.peek() == value && result_priority){
+                            priority.poll();
+                        }
+                    }
+                    else {
+                        impossible = true;
+                    }
+                }
+            }
+            if (impossible){
+                System.out.println("impossible");
+            }
+            else if (!result_stack && !result_priority && !result_queue){
+                System.out.println("impossible");
+            }
+            else if (result_stack && result_priority && result_queue){
+                System.out.println("not sure");
+            }
+            else if (result_stack && result_priority ||result_stack && result_queue || result_queue && result_priority){
+                System.out.println("not sure");
+            }
+            else if (result_stack){
+                System.out.println("stack");
+            }
+            else if (result_queue){
+                System.out.println("queue");
+            }
+            else if (result_priority){
+                System.out.println("priority queue");
+            }
+        }
+        sc.close();
+    }
+}
