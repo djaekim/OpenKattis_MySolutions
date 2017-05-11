@@ -1,0 +1,91 @@
+import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.LinkedList;
+
+public class Goldbach {
+
+  /*public boolean Prime(int x){
+	  if (x==1) return true;
+	  for (int i=2; i*i <=x; i++){
+		  if (x%i==0)return false;
+	  }
+	  return true;
+  }
+  */
+  
+  public static void main(String[] args) {
+
+    Scanner sc = new Scanner(System.in);
+
+    int numCases = sc.nextInt();
+
+    for (int cases = 0; cases < numCases; cases++) {
+      int inputNum = sc.nextInt();
+
+      ArrayList<Integer> allNum = new ArrayList<Integer>(inputNum);
+      // LinkedList<Integer> compatedPrime = new LinkedList<Integer>();
+      ArrayList<Integer> compatedPrime = new ArrayList<Integer>(inputNum);
+      int compactIndex = 0;
+
+      for (int i = 0; i < inputNum; i++) {
+        allNum.add(i, i);
+      }
+      // allNum.set(0, -1);
+      // allNum.set(1, -1);
+
+      for (int i = 2; i < Math.sqrt(inputNum); i++) {
+        if (allNum.get(i) > 0) {
+          int squared = (int) Math.pow(i,2);
+          for (int j = squared; j < inputNum; j+=i) {
+            allNum.set(j, -1);
+          }
+        }
+      }
+
+      for (int i = 0; i < inputNum; i++) {
+        if (allNum.get(i) != -1) {
+          compatedPrime.add(allNum.get(i));
+          compactIndex++;
+        }
+       }
+
+      // System.out.println(allNum);
+      // System.out.println();
+      // System.out.println();
+      // System.out.println(compatedPrime);
+
+      ArrayList<String> answers = new ArrayList<String>();
+
+      for (int i = 2; i < compatedPrime.size(); i++) {
+        int currentPrime = compatedPrime.get(i);
+        int subtractInputToCur = inputNum - currentPrime;
+
+        if (allNum.get(subtractInputToCur) != -1) {	
+          if (currentPrime != 1 && subtractInputToCur != 1){
+        	  String good = currentPrime + "+" + allNum.get(subtractInputToCur);
+        	  answers.add(good);
+        	//  System.out.println(good);
+          }
+          continue;
+        }
+
+      }
+       //System.out.println();
+       //System.out.println();
+      // System.out.println(answers);
+//
+      String prevNum;
+
+      System.out.println(inputNum + " has " + (int) Math.ceil((double)answers.size() / 2.0) + " representation(s)");
+
+      for (int i = 0; i < Math.ceil((double)answers.size() / 2.0); i++) {
+        prevNum = answers.get(i);
+        System.out.println(answers.get(i));
+      }
+
+
+    }
+
+
+  }
+}
