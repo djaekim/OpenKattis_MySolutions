@@ -1,0 +1,55 @@
+import java.util.*;
+
+public class RockPaperScissors {
+	public static void main (String [] args){
+	// rock beats scissor
+	// scissor beats paper
+	// paper beats rock
+	Scanner scan = new Scanner(System.in);
+	while(scan.hasNext()){
+	int win = 0;
+	int loss = 1;
+	int n = scan.nextInt();
+	if (n == 0){
+		return;
+	}
+	int k = scan.nextInt();
+	int totalGames = (k*n*(n-1))/2;
+	//System.out.println(totalGames);
+	int record [][] = new int[n+1][2]; // win or loss
+	for (int i = 0; i < totalGames; i++){
+			int p1 = scan.nextInt();
+			String p1Move = scan.next();
+			int p2 = scan.nextInt();
+			String p2Move = scan.next();
+			if (p1Move.equals("rock") && p2Move.equals("scissors")){
+				record[p1][win]++;
+				record[p2][loss]++;
+			}
+			else if (p1Move.equals("scissors") && p2Move.equals("paper")){
+				record[p1][win]++;
+				record[p2][loss]++;
+			}
+			else if (p1Move.equals("paper") && p2Move.equals("rock")){
+				record[p1][win]++;
+				record[p2][loss]++;
+			}
+			else if (p1Move.equals(p2Move)){
+				continue;
+			}
+			else { // p2 won
+				record[p2][win]++;
+				record[p1][loss]++;
+			}
+	}
+	for (int i = 1; i < n+1; i++){
+		double wins = record[i][win];
+		double losses = record[i][loss];
+		System.out.printf("%.3f",wins/(wins+losses));
+		System.out.println();
+	}
+	System.out.println();
+	
+	}
+	}
+}
